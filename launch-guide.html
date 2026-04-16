@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ResumeAI — Launch Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #09090A;
+  --s: #111112;
+  --s2: #18181A;
+  --b: #27272B;
+  --b2: #333338;
+  --t: #F0EDE6;
+  --t2: #9A9690;
+  --t3: #5E5C58;
+  --gold: #C9A76A;
+  --green: #5DBF8A;
+  --blue: #6B9FD4;
+  --red: #E06060;
+  --fd: 'Cormorant Garamond', Georgia, serif;
+  --fb: 'DM Sans', system-ui, sans-serif;
+  --fm: 'DM Mono', 'Courier New', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--t);
+  font-family: var(--fb);
+  font-size: 15px;
+  line-height: 1.7;
+  padding: 3rem 2rem 5rem;
+  max-width: 780px;
+  margin: 0 auto;
+}
+h1 {
+  font-family: var(--fd);
+  font-size: 2.8rem; font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+h1 em { font-style: italic; color: var(--gold); }
+.subtitle { font-size: 16px; color: var(--t2); margin-bottom: 3rem; }
+.toc {
+  background: var(--s);
+  border: 1px solid var(--b);
+  border-radius: 12px;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 3rem;
+}
+.toc-title { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--t3); font-weight: 500; margin-bottom: 1rem; }
+.toc a { display: block; color: var(--t2); text-decoration: none; font-size: 14px; padding: 4px 0; border-bottom: none; }
+.toc a:hover { color: var(--gold); }
+.toc-num { color: var(--t3); margin-right: 6px; }
+h2 {
+  font-family: var(--fd);
+  font-size: 1.9rem; font-weight: 500;
+  margin: 3rem 0 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--b);
+  display: flex; align-items: center; gap: 12px;
+}
+.step-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 32px; height: 32px;
+  background: var(--gold);
+  color: #1A1000;
+  border-radius: 8px;
+  font-size: 14px; font-weight: 500;
+  font-family: var(--fb);
+  flex-shrink: 0;
+}
+p { color: var(--t2); margin-bottom: 1rem; }
+strong { color: var(--t); font-weight: 500; }
+a { color: var(--blue); }
+code {
+  font-family: var(--fm);
+  font-size: 13px;
+  background: var(--s2);
+  border: 1px solid var(--b2);
+  border-radius: 5px;
+  padding: 2px 7px;
+  color: var(--gold);
+}
+pre {
+  background: var(--s);
+  border: 1px solid var(--b2);
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  margin: 1rem 0 1.5rem;
+  overflow-x: auto;
+  font-family: var(--fm);
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--t2);
+}
+pre .c { color: var(--t3); }
+pre .k { color: var(--gold); }
+pre .s { color: var(--green); }
+pre .cmd { color: var(--blue); }
+.callout {
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.callout-icon { font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+.callout.tip { background: rgba(201,167,106,0.08); border: 1px solid rgba(201,167,106,0.2); color: #C9A76A; }
+.callout.warn { background: rgba(224,96,96,0.07); border: 1px solid rgba(224,96,96,0.2); color: var(--red); }
+.callout.info { background: rgba(107,159,212,0.08); border: 1px solid rgba(107,159,212,0.2); color: var(--blue); }
+.callout.success { background: rgba(93,191,138,0.08); border: 1px solid rgba(93,191,138,0.2); color: var(--green); }
+ol, ul { padding-left: 1.5rem; color: var(--t2); margin-bottom: 1rem; }
+ol li, ul li { margin-bottom: 6px; line-height: 1.65; }
+.file-tree {
+  background: var(--s);
+  border: 1px solid var(--b);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  font-family: var(--fm);
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--t2);
+  margin: 1rem 0 1.5rem;
+}
+.file-tree .dir { color: var(--gold); font-weight: 500; }
+.file-tree .file { color: var(--t2); }
+.file-tree .note { color: var(--t3); margin-left: 8px; }
+.checklist { list-style: none; padding: 0; }
+.checklist li { padding: 7px 0; border-bottom: 1px solid var(--b); font-size: 14.5px; display: flex; gap: 10px; align-items: flex-start; }
+.checklist li:last-child { border: none; }
+.check-icon { color: var(--green); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+.platform-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin: 1.25rem 0;
+}
+.platform {
+  background: var(--s2);
+  border: 1px solid var(--b);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  font-size: 14px;
+}
+.platform-name { font-weight: 500; color: var(--t); margin-bottom: 4px; }
+.platform-meta { font-size: 12.5px; color: var(--t3); }
+.reddit-post {
+  background: var(--s);
+  border: 1px solid var(--b2);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin: 1rem 0;
+  font-size: 14px;
+  color: var(--t2);
+  line-height: 1.7;
+}
+.reddit-title { color: var(--blue); font-weight: 500; font-size: 15px; margin-bottom: 0.5rem; }
+.reddit-sub { font-size: 12px; color: var(--t3); margin-bottom: 1rem; }
+hr { border: none; border-top: 1px solid var(--b); margin: 2rem 0; }
+.money-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin: 1.25rem 0;
+}
+.money-table th {
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 11.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--t3);
+  border-bottom: 1px solid var(--b);
+  font-weight: 500;
+}
+.money-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--b);
+  color: var(--t2);
+  vertical-align: top;
+}
+.money-table tr:last-child td { border: none; }
+.money-table td:first-child { color: var(--t); font-weight: 500; }
+.highlight { color: var(--green); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<h1>Launch <em>ResumeAI</em><br>Step by Step</h1>
+<p class="subtitle">Everything you need: GitHub Pages setup · Anthropic API key · Marketing playbook</p>
+
+<div class="toc">
+  <div class="toc-title">Contents</div>
+  <a href="#files"><span class="toc-num">1.</span> Your file structure</a>
+  <a href="#github"><span class="toc-num">2.</span> Go live with GitHub Pages (free)</a>
+  <a href="#api"><span class="toc-num">3.</span> Get your Anthropic API key</a>
+  <a href="#backend"><span class="toc-num">4.</span> Protect your API key (important)</a>
+  <a href="#payments"><span class="toc-num">5.</span> Set up payments</a>
+  <a href="#marketing"><span class="toc-num">6.</span> Marketing playbook</a>
+  <a href="#revenue"><span class="toc-num">7.</span> Revenue projections</a>
+</div>
+
+<!-- ─── FILES ─── -->
+<h2 id="files"><span class="step-badge">1</span> Your file structure</h2>
+<p>You downloaded two files. Rename them like this before uploading to GitHub:</p>
+<div class="file-tree">
+  <span class="dir">resumeai/</span><br>
+  &nbsp;&nbsp;<span class="file">index.html</span><span class="note">← the landing page</span><br>
+  &nbsp;&nbsp;<span class="file">app.html</span><span class="note">← the CV optimizer tool (rename cv-optimizer.html → app.html)</span>
+</div>
+<p><strong>Important:</strong> rename <code>cv-optimizer.html</code> to <code>app.html</code>. The landing page links to <code>app.html</code> — if they don't match, your buttons won't work.</p>
+
+<!-- ─── GITHUB ─── -->
+<h2 id="github"><span class="step-badge">2</span> Go live with GitHub Pages</h2>
+<p>GitHub Pages hosts static HTML files for free with a real URL. No server needed.</p>
+
+<p><strong>Step 1 — Create a free GitHub account</strong></p>
+<p>Go to <a href="https://github.com" target="_blank">github.com</a> and sign up. It's completely free.</p>
+
+<p><strong>Step 2 — Create a new repository</strong></p>
+<ol>
+  <li>Click the <strong>+</strong> icon (top right) → <strong>New repository</strong></li>
+  <li>Name it: <code>resumeai</code></li>
+  <li>Set it to <strong>Public</strong></li>
+  <li>Tick <strong>"Add a README file"</strong></li>
+  <li>Click <strong>Create repository</strong></li>
+</ol>
+
+<p><strong>Step 3 — Upload your files</strong></p>
+<ol>
+  <li>Inside your new repo, click <strong>Add file → Upload files</strong></li>
+  <li>Drag both <code>index.html</code> and <code>app.html</code> into the upload area</li>
+  <li>Scroll down, click <strong>Commit changes</strong></li>
+</ol>
+
+<p><strong>Step 4 — Enable GitHub Pages</strong></p>
+<ol>
+  <li>Click <strong>Settings</strong> (top menu of your repo)</li>
+  <li>Scroll down to <strong>Pages</strong> (left sidebar)</li>
+  <li>Under "Source", select <strong>Deploy from a branch</strong></li>
+  <li>Choose <strong>main</strong> branch, <strong>/ (root)</strong> folder</li>
+  <li>Click <strong>Save</strong></li>
+</ol>
+
+<div class="callout success">
+  <span class="callout-icon">✓</span>
+  <div>Your site will be live at: <strong>https://YOUR-USERNAME.github.io/resumeai/</strong> — usually within 1–2 minutes. That's your real URL to share.</div>
+</div>
+
+<p><strong>Step 5 — Update the app (whenever you make changes)</strong></p>
+<p>To update files later, just go to your repo, click the file → the pencil (edit) icon → make changes → <strong>Commit changes</strong>. Your live site updates in seconds.</p>
+
+<div class="callout tip">
+  <span class="callout-icon">◆</span>
+  <div><strong>Want a custom domain?</strong> Buy <code>resumeai.co.uk</code> from Namecheap (~£8/yr) and follow GitHub's custom domain setup under Settings → Pages. Makes it look far more professional.</div>
+</div>
+
+<!-- ─── API KEY ─── -->
+<h2 id="api"><span class="step-badge">3</span> Get your Anthropic API key</h2>
+
+<p><strong>Step 1 — Create an Anthropic account</strong></p>
+<p>Go to <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> and sign up with your email.</p>
+
+<p><strong>Step 2 — Add credits</strong></p>
+<ol>
+  <li>Go to <strong>Billing</strong> in the left sidebar</li>
+  <li>Add £10–£20 to start — this will last you thousands of CV optimisations</li>
+  <li>Each CV optimisation costs roughly <strong>£0.003</strong> (less than half a penny)</li>
+</ol>
+
+<p><strong>Step 3 — Create your API key</strong></p>
+<ol>
+  <li>Go to <strong>API Keys</strong> in the left sidebar</li>
+  <li>Click <strong>Create Key</strong></li>
+  <li>Name it <code>resumeai-production</code></li>
+  <li>Copy the key — it starts with <code>sk-ant-api03-...</code></li>
+</ol>
+
+<div class="callout warn">
+  <span class="callout-icon">!</span>
+  <div><strong>Never paste your API key directly into your public HTML file.</strong> Anyone can view source and steal it — running up charges on your account. Read Section 4 to do this safely.</div>
+</div>
+
+<p><strong>Cost calculator:</strong></p>
+<table class="money-table">
+  <tr><th>Monthly users</th><th>Optimisations</th><th>Your API cost</th></tr>
+  <tr><td>100 users</td><td>300/month</td><td>~£0.90</td></tr>
+  <tr><td>500 users</td><td>1,500/month</td><td>~£4.50</td></tr>
+  <tr><td>1,000 users</td><td>3,000/month</td><td>~£9.00</td></tr>
+  <tr><td>5,000 users</td><td>15,000/month</td><td>~£45.00</td></tr>
+</table>
+<p>Even with 5,000 users, your API cost is £45/month. If 100 of them pay £4.99/month, that's £499 revenue against £45 cost.</p>
+
+<!-- ─── BACKEND ─── -->
+<h2 id="backend"><span class="step-badge">4</span> Protect your API key (important)</h2>
+
+<p>The safest way to use your API key is with a free serverless function on <strong>Vercel</strong>. It acts as a middleman — your key stays secret on the server, not visible in your HTML.</p>
+
+<p><strong>Option A — Vercel (recommended, free)</strong></p>
+<ol>
+  <li>Create a free account at <a href="https://vercel.com" target="_blank">vercel.com</a></li>
+  <li>Create a new project, import your GitHub repo</li>
+  <li>Create a file <code>api/optimize.js</code> in your repo with this content:</li>
+</ol>
+
+<pre><span class="c">// api/optimize.js — Vercel serverless function</span>
+<span class="k">export default async function</span> handler(req, res) {
+  <span class="k">if</span> (req.method !== <span class="s">'POST'</span>) <span class="k">return</span> res.status(405).end();
+
+  <span class="k">const</span> response = <span class="k">await</span> fetch(<span class="s">'https://api.anthropic.com/v1/messages'</span>, {
+    method: <span class="s">'POST'</span>,
+    headers: {
+      <span class="s">'x-api-key'</span>: process.env.ANTHROPIC_API_KEY,  <span class="c">// ← safe, server-side</span>
+      <span class="s">'anthropic-version'</span>: <span class="s">'2023-06-01'</span>,
+      <span class="s">'Content-Type'</span>: <span class="s">'application/json'</span>
+    },
+    body: JSON.stringify(req.body)
+  });
+
+  <span class="k">const</span> data = <span class="k">await</span> response.json();
+  res.status(response.status).json(data);
+}</pre>
+
+<ol start="4">
+  <li>In Vercel → your project → <strong>Settings → Environment Variables</strong></li>
+  <li>Add: Name = <code>ANTHROPIC_API_KEY</code>, Value = your <code>sk-ant-...</code> key</li>
+  <li>In <code>app.html</code>, change the API URL from <code>https://api.anthropic.com/v1/messages</code> to <code>/api/optimize</code></li>
+</ol>
+
+<div class="callout success">
+  <span class="callout-icon">✓</span>
+  <div>Now your API key is <strong>never exposed</strong> in your HTML. Users can't steal it from view source.</div>
+</div>
+
+<p><strong>Option B — GitHub Pages (quick start, less secure)</strong></p>
+<p>For getting started fast, you can temporarily paste your API key directly into <code>app.html</code>. Find this line and add your key:</p>
+<pre><span class="k">const</span> CONFIG = {
+  <span class="s">API_KEY</span>: <span class="s">'sk-ant-api03-YOUR-KEY-HERE'</span>,  <span class="c">// ← add here</span>
+  ...
+};</pre>
+<p>This works but is not recommended for a public site. Move to Vercel as soon as you have users.</p>
+
+<!-- ─── PAYMENTS ─── -->
+<h2 id="payments"><span class="step-badge">5</span> Set up payments</h2>
+
+<p>Use <strong>Stripe</strong> for a professional setup, or <strong>Lemon Squeezy</strong> for the simplest possible option (handles EU VAT automatically).</p>
+
+<p><strong>Lemon Squeezy (easiest — recommended for starting out)</strong></p>
+<ol>
+  <li>Create account at <a href="https://lemonsqueezy.com" target="_blank">lemonsqueezy.com</a></li>
+  <li>Create a new <strong>Subscription product</strong> — £4.99/month, name it "ResumeAI Pro"</li>
+  <li>Copy the checkout URL they give you</li>
+  <li>In <code>index.html</code>, find <code>onclick="alert('Add your payment link here!')"</code> and replace with <code>href="YOUR_LEMON_URL"</code></li>
+  <li>In <code>app.html</code>, find <code>UPGRADE_URL: '#upgrade'</code> and replace with your link</li>
+</ol>
+
+<div class="callout tip">
+  <span class="callout-icon">◆</span>
+  <div><strong>Lemon Squeezy handles UK and EU VAT automatically</strong> — you don't need to register for VAT yourself. This alone saves you significant admin headache.</div>
+</div>
+
+<!-- ─── MARKETING ─── -->
+<h2 id="marketing"><span class="step-badge">6</span> Marketing playbook</h2>
+
+<p>Your biggest advantage: this is a <strong>free tool that actually helps people</strong>. That spreads itself. Here's where to post it.</p>
+
+<p><strong>Week 1 — Reddit (free, high-intent audience)</strong></p>
+<p>These communities are full of people actively job-hunting. Post a genuine, helpful message — not spam. Example:</p>
+
+<div class="reddit-post">
+  <div class="reddit-sub">r/resumes • r/jobs • r/GetEmployed • r/careerguidance</div>
+  <div class="reddit-title">I built a free AI tool that rewrites your CV for specific jobs — try it</div>
+  <p>I've been job hunting myself and was frustrated that my CV kept getting rejected without feedback. So I built a free tool that takes your CV + a job description and rewrites the whole thing using AI — matching keywords, quantifying achievements, and making it ATS-friendly.<br><br>No sign-up, no email, completely free (3 uses/day). Would love feedback from this community.<br><br>[Link]</p>
+</div>
+
+<p><strong>Which subreddits to post in:</strong></p>
+<ul>
+  <li><strong>r/resumes</strong> — 900K members, CV critique community</li>
+  <li><strong>r/jobs</strong> — 500K members, job seekers</li>
+  <li><strong>r/GetEmployed</strong> — smaller but very active</li>
+  <li><strong>r/cscareerquestions</strong> — tech job seekers (use Technical mode)</li>
+  <li><strong>r/marketing</strong> — if you pitch the Creative/Professional modes</li>
+</ul>
+
+<p><strong>Week 1 — LinkedIn (free, professional audience)</strong></p>
+<p>Post this as a personal LinkedIn post — not a company page post. Personal posts get 5–10× more reach:</p>
+
+<div class="reddit-post">
+  <div class="reddit-title">I built a free AI CV optimizer and I want feedback from job seekers</div>
+  <p>After seeing friends struggle to get callbacks despite strong experience, I built a small free tool. You paste your CV + the job description, and AI rewrites it to match what recruiters look for.<br><br>ATS-optimised, no account needed, completely free to start.<br><br>If you're job hunting or know someone who is — try it here: [link]<br><br>Would genuinely love honest feedback in the comments.</p>
+</div>
+
+<p><strong>Week 2 — ProductHunt launch</strong></p>
+<ol>
+  <li>Create an account at <a href="https://producthunt.com" target="_blank">producthunt.com</a></li>
+  <li>Submit your product (it's free) — pick a Tuesday or Wednesday for best visibility</li>
+  <li>Tagline: <em>"AI rewrites your CV to land more interviews — free"</em></li>
+  <li>Tell your friends, post on social asking for upvotes on launch day</li>
+  <li>A top-10 ProductHunt finish can get you 500–2,000 visitors in one day</li>
+</ol>
+
+<p><strong>Week 2–4 — Facebook groups</strong></p>
+<ul>
+  <li>Search Facebook for: "job seekers UK", "CV help", "graduate jobs", "career change"</li>
+  <li>Join 5–10 active groups</li>
+  <li>Contribute genuinely for a few days, then share the tool</li>
+</ul>
+
+<p><strong>Ongoing — SEO (free, long-term)</strong></p>
+<p>Add these meta tags to both your HTML files — Google will index them:</p>
+<pre><span class="c">&lt;!-- Already in your index.html, just verify these are there --&gt;</span>
+&lt;<span class="cmd">meta</span> name=<span class="s">"description"</span> content=<span class="s">"Free AI CV optimizer..."</span>&gt;
+&lt;<span class="cmd">meta</span> property=<span class="s">"og:title"</span> content=<span class="s">"ResumeAI"</span>&gt;</pre>
+<p>Target keywords: "free CV optimizer", "AI resume rewriter UK", "ATS cv checker free"</p>
+
+<p><strong>Ongoing — Twitter/X</strong></p>
+<p>Post short before/after examples — show a generic bullet point transformed into a strong one. These get shared heavily in job-seeking communities.</p>
+
+<!-- ─── REVENUE ─── -->
+<h2 id="revenue"><span class="step-badge">7</span> Revenue projections</h2>
+
+<p>Realistic scenario based on similar tools:</p>
+
+<table class="money-table">
+  <tr><th>Timeline</th><th>Monthly visitors</th><th>Paying users (2%)</th><th>Monthly revenue</th></tr>
+  <tr><td>Month 1</td><td>500</td><td>10</td><td>£50</td></tr>
+  <tr><td>Month 2</td><td>1,500</td><td>30</td><td>£150</td></tr>
+  <tr><td>Month 3</td><td>3,000</td><td>60</td><td>£300</td></tr>
+  <tr><td>Month 6</td><td>8,000</td><td>160</td><td>£800</td></tr>
+  <tr><td>Month 12</td><td>20,000</td><td>400</td><td class="highlight">£2,000/mo</td></tr>
+</table>
+
+<p>The 2% free-to-paid conversion is conservative. CV tools often convert at 4–8% because the audience is motivated (they need a job). At 5% conversion with 5,000 visitors, you have 250 paying users × £4.99 = <span class="highlight">£1,250/month</span>.</p>
+
+<div class="callout success">
+  <span class="callout-icon">✓</span>
+  <div><strong>Your launch checklist:</strong>
+    <ul style="margin-top:0.6rem; color:var(--green);">
+      <li>Rename cv-optimizer.html → app.html</li>
+      <li>Create GitHub account + repo</li>
+      <li>Upload index.html + app.html</li>
+      <li>Enable GitHub Pages</li>
+      <li>Get Anthropic API key at console.anthropic.com</li>
+      <li>Add API key (Vercel recommended, or directly in app.html for now)</li>
+      <li>Create Lemon Squeezy payment link</li>
+      <li>Update UPGRADE_URL in both files</li>
+      <li>Post in r/resumes + r/jobs on Reddit</li>
+      <li>Post on LinkedIn</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
